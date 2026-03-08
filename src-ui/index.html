@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>N2NSVR</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-tabs" aria-label="主导航">
+        <button class="nav-tab active" data-tab="home">
+          <span class="tab-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-4.8v-5.6H9.8V21H5a1 1 0 0 1-1-1z"></path>
+            </svg>
+          </span>
+          <span>N2NSVR</span>
+        </button>
+        <button class="nav-tab" data-tab="settings">
+          <span class="tab-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3.8 13.6 5l2.1-.4.8 2 2 .8-.4 2.1 1.2 1.6-1.2 1.6.4 2.1-2 .8-.8 2-2.1-.4L12 20.2l-1.6-1.2-2.1.4-.8-2-2-.8.4-2.1L4.7 12l1.2-1.6-.4-2.1 2-.8.8-2 2.1.4z"></path>
+              <circle cx="12" cy="12" r="3.2"></circle>
+            </svg>
+          </span>
+          <span>软件设置</span>
+        </button>
+      </header>
+
+      <main class="content-stack">
+        <section class="page active" data-page="home">
+          <section class="soft-card aligned-card">
+            <div class="card-header">
+              <h2>服务器</h2>
+              <div class="header-actions">
+                <span id="statusText" class="status-chip">未启动</span>
+                <button id="saveButton" class="icon-button text-button">保存当前配置</button>
+              </div>
+            </div>
+            <div class="server-row">
+              <label class="server-input-wrap">
+                <span class="mini-label">监听端口</span>
+                <input id="portInput" type="text" placeholder="7654" />
+              </label>
+              <label class="server-input-wrap">
+                <span class="mini-label">管理端口</span>
+                <input id="managementPortInput" type="text" placeholder="5645" />
+              </label>
+              <button id="startButton" class="action-button primary-action">
+                <span class="action-icon">▶</span>
+                <span>启动</span>
+              </button>
+              <button id="stopButton" class="action-button">
+                <span class="action-icon">■</span>
+                <span>停止</span>
+              </button>
+            </div>
+          </section>
+
+          <section id="homeLogCard" class="soft-card log-card home-log-card">
+            <div class="card-header">
+              <h2>运行日志</h2>
+              <div class="header-actions">
+                <span id="pidText" class="header-meta">PID: -</span>
+                <button id="clearLogsButton" class="icon-button">清空日志</button>
+              </div>
+            </div>
+            <div id="logView" class="log-view light-log"></div>
+          </section>
+        </section>
+
+        <section class="page" data-page="settings">
+          <section class="soft-card settings-card">
+            <div class="setting-row">
+              <div class="setting-copy">
+                <div class="setting-title">日志自动滚动</div>
+                <div class="setting-desc">有新日志时自动滚动到最新一行</div>
+              </div>
+              <label class="switch">
+                <input id="autoScrollInput" type="checkbox" checked />
+                <span class="switch-ui"></span>
+              </label>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-copy">
+                <div class="setting-title">快速重连</div>
+                <div class="setting-desc">启用后追加 <code>-M</code>，适用于可信网络快速恢复连接</div>
+              </div>
+              <label class="switch">
+                <input id="fastReconnectInput" type="checkbox" />
+                <span class="switch-ui"></span>
+              </label>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-copy">
+                <div class="setting-title">连接参数</div>
+                <div class="setting-desc">追加给 supernode 的自定义启动参数</div>
+              </div>
+              <div class="settings-input-wrap">
+                <input id="extraArgsInput" type="text" placeholder="-f -v" />
+              </div>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-copy">
+                <div class="setting-title">关闭按钮行为</div>
+                <div class="setting-desc">点击窗口右上角关闭按钮后的行为</div>
+              </div>
+              <div class="segmented">
+                <button class="segment active" data-close-behavior="exit">直接关闭</button>
+                <button class="segment" data-close-behavior="tray">最小化到托盘</button>
+              </div>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div id="trayHintModal" class="modal-backdrop hidden" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="trayHintTitle">
+        <p class="modal-eyebrow">首次提示</p>
+        <h3 id="trayHintTitle">已切换为最小化到托盘</h3>
+        <p class="modal-text">
+          以后点击窗口右上角关闭按钮时，软件不会退出，而是隐藏到系统托盘。你可以通过托盘图标左键恢复窗口，或在托盘菜单中选择“退出软件”。
+        </p>
+        <div class="modal-actions">
+          <button id="trayHintConfirmButton" class="primary-modal-button">我知道了</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+  </html>
