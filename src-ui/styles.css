@@ -38,7 +38,8 @@ button {
   cursor: pointer;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
   width: 100%;
   border: 1px solid var(--line-strong);
   border-radius: 10px;
@@ -50,7 +51,8 @@ input[type="text"] {
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05);
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+input[type="password"]:focus {
   border-color: #b8b8b8;
 }
 
@@ -201,6 +203,10 @@ input[type="text"]:focus {
   gap: 8px;
   padding: 10px;
   align-items: end;
+}
+
+.server-row.three-col {
+  grid-template-columns: 1fr 1fr auto;
 }
 
 .server-input-wrap,
@@ -449,12 +455,112 @@ code {
   font-family: "Cascadia Mono", "JetBrains Mono", Consolas, monospace;
 }
 
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ── 获取按钮 ── */
+.fetch-btn {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── 隧道列表 ── */
+.tunnel-list {
+  border-top: 1px solid var(--line);
+  max-height: 220px;
+  overflow-y: auto;
+  background: #fafafa;
+}
+
+.tunnel-empty {
+  padding: 12px;
+  color: var(--muted);
+  font-size: 11px;
+  text-align: center;
+}
+
+.tunnel-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.tunnel-item:last-child {
+  border-bottom: 0;
+}
+
+.tunnel-item:hover {
+  background: #f0f0f0;
+}
+
+.tunnel-item input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.tunnel-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: #e8e8e8;
+  color: #555;
+  flex-shrink: 0;
+}
+
+.tunnel-badge.type-tcp  { background: #dbeafe; color: #1d4ed8; }
+.tunnel-badge.type-udp  { background: #ede9fe; color: #6d28d9; }
+.tunnel-badge.type-http { background: #dcfce7; color: #166534; }
+.tunnel-badge.type-https{ background: #d1fae5; color: #065f46; }
+
+.tunnel-name {
+  font-weight: 500;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tunnel-meta {
+  color: var(--muted);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.tunnel-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tunnel-dot.online  { background: #4ade80; }
+.tunnel-dot.offline { background: #d1d5db; }
+
 @media (max-width: 420px) {
   .app-shell {
     padding: 10px;
   }
 
-  .server-row {
+  .server-row,
+  .server-row.three-col {
     grid-template-columns: 1fr;
   }
 
